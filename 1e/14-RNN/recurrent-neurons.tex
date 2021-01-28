@@ -59,6 +59,9 @@ where
   \item $w_y, b$ are both in $\mathbb{R}$
 \end{itemize}
 
+\newpage
+%\thispagestyle{empty}
+\setcounter{page}{3}
 
 \section{A Layer of Recurrent Neurons}
 To illustrate, let's take Figure 14-2 for example, in which we have a layer of \textbf{5} recurrent neurons. So,
@@ -101,25 +104,53 @@ where
   %\item $x_{(t)} \in \mathbb{R}^{k}$ as before, and $y_{(t-1)} \in \mathbb{R}^{l},$ where $l =$ \#(recurrent neurons).
   \item $x_{(t)} \in \mathbb{R}^{k}$ as before, and $y_{(t-1)} \in \mathbb{R}^{l},$ where $l = \text{\#(recurrent neurons)}$, i.e. number of recurrent neurons in the layer, here, in particular, $l=5$
   \item $w_{x,j} \in \mathbb{R}^k, w_{y,j} \in \mathbb{R}^l, b_{j} \in \mathbb{R}$ are the weights and bias associated with the $j$-th neuron (for all $j=1,2,3,4,5$)
-  \item We define \begin{align*}
-    {W_x}^{T} &= \begin{pmatrix}
-      \quad\horzbar\;{w_{x,1}}^T{}\;\horzbar\quad \\
-      \quad\horzbar\;{w_{x,2}}^T{}\;\horzbar\quad \\
-      \quad\horzbar\;{w_{x,3}}^T{}\;\horzbar\quad \\
-      \quad\horzbar\;{w_{x,4}}^T{}\;\horzbar\quad \\
-      \quad\horzbar\;{w_{x,5}}^T{}\;\horzbar\quad \\
-    \end{pmatrix} \\
-    \\
-    \qquad &{}\text{or equivalently} \\
-    \\
-    {W_x} &= \begin{pmatrix}
-      \vertbar & \vertbar & \vertbar & \vertbar & \vertbar \\
-      w_{x,1} & w_{x,2} & w_{x,3} & w_{x,4} & w_{x,5} \\
-      \vertbar & \vertbar & \vertbar & \vertbar & \vertbar
-    \end{pmatrix}\,.
-  \end{align*}
-  %\item $y_{(t-1)} \in \mathbb{R}$ is the output of the previous time step
-  %\item $w_y, b$ are both in $\mathbb{R}$
+  \item We define
+    \begin{align*}
+      {W_x}^{T} &= \begin{pmatrix}
+        \quad\horzbar\;{w_{x,1}}^T{}\;\horzbar\quad \\
+        \quad\horzbar\;{w_{x,2}}^T{}\;\horzbar\quad \\
+        \quad\horzbar\;{w_{x,3}}^T{}\;\horzbar\quad \\
+        \quad\horzbar\;{w_{x,4}}^T{}\;\horzbar\quad \\
+        \quad\horzbar\;{w_{x,5}}^T{}\;\horzbar\quad \\
+      \end{pmatrix} \\
+      \\
+      \qquad &{}\text{or equivalently} \\
+      \\
+      {W_x} &= \begin{pmatrix}
+        \vertbar & \vertbar & \vertbar & \vertbar & \vertbar \\
+        w_{x,1} & w_{x,2} & w_{x,3} & w_{x,4} & w_{x,5} \\
+        \vertbar & \vertbar & \vertbar & \vertbar & \vertbar
+      \end{pmatrix}\,.
+    \end{align*}
+  \item We define similarly
+    \begin{align*}
+      {W_y}^{T} &= \begin{pmatrix}
+        \quad\horzbar\;{w_{y,1}}^T{}\;\horzbar\quad \\
+        \quad\horzbar\;{w_{y,2}}^T{}\;\horzbar\quad \\
+        \quad\horzbar\;{w_{y,3}}^T{}\;\horzbar\quad \\
+        \quad\horzbar\;{w_{y,4}}^T{}\;\horzbar\quad \\
+        \quad\horzbar\;{w_{y,5}}^T{}\;\horzbar\quad \\
+      \end{pmatrix} \\
+      \\
+      \qquad &{}\text{or equivalently} \\
+      \\
+      {W_y} &= \begin{pmatrix}
+        \vertbar & \vertbar & \vertbar & \vertbar & \vertbar \\
+        w_{y,1} & w_{y,2} & w_{y,3} & w_{y,4} & w_{y,5} \\
+        \vertbar & \vertbar & \vertbar & \vertbar & \vertbar
+      \end{pmatrix}\,.
+    \end{align*}
+  \item It is understood that
+    $$
+    b =
+    \begin{pmatrix}
+      b_1 \\
+      b_2 \\
+      b_3 \\
+      b_4 \\
+      b_5
+    \end{pmatrix}
+    $$
 \end{itemize}
 
 
