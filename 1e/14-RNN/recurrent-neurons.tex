@@ -70,39 +70,48 @@ where
 \includepdf[pages=-]{p380-381.pdf}
 
 
-\setcounter{page}{4}
+%\setcounter{page}{4}
 
 \section{A Layer of Recurrent Neurons}
 To illustrate, let's take Figure 14-2 for example, in which we have a layer of \textbf{5} recurrent neurons. So,
 the output of this particular layer equals
 \begin{align*}
-  \begin{pmatrix}
-    y_{(t), 1} \\
-    y_{(t), 2} \\
-    y_{(t), 3} \\
-    y_{(t), 4} \\
-    y_{(t), 5}
-  \end{pmatrix}
+  \begin{bmatrix}
+    \;\,y_{(t), 1} \;\, \\
+    \;\,y_{(t), 2} \;\, \\
+    \;\,y_{(t), 3} \;\, \\
+    \;\,y_{(t), 4} \;\, \\
+    \;\,y_{(t), 5} \;\,
+  \end{bmatrix}
   &= \phi
-  %\Bigg(\begin{bmatrix}
-  \begin{pmatrix}
-    \langle x_{(t)}, w_{x, 1} \rangle
+  \Bigg(\begin{bmatrix}
+  %\begin{pmatrix}
+    \quad\langle x_{(t)}, w_{x, 1} \rangle
     + \langle y_{(t-1)}, w_{y, 1} \rangle
-    + b_1 \\
-    \langle x_{(t)}, w_{x, 2} \rangle
+    + b_1
+    \quad
+    \\
+    \quad\langle x_{(t)}, w_{x, 2} \rangle
     + \langle y_{(t-1)}, w_{y, 2} \rangle
-    + b_2 \\
-    \langle x_{(t)}, w_{x, 3} \rangle
+    + b_2
+    \quad
+    \\
+    \quad\langle x_{(t)}, w_{x, 3} \rangle
     + \langle y_{(t-1)}, w_{y, 3} \rangle
-    + b_3 \\
-    \langle x_{(t)}, w_{x, 4} \rangle
+    + b_3
+    \quad
+    \\
+    \quad\langle x_{(t)}, w_{x, 4} \rangle
     + \langle y_{(t-1)}, w_{y, 4} \rangle
-    + b_4 \\
-    \langle x_{(t)}, w_{x, 5} \rangle
+    + b_4
+    \quad
+    \\
+    \quad\langle x_{(t)}, w_{x, 5} \rangle
     + \langle y_{(t-1)}, w_{y, 5} \rangle
-    + b_5 \\
-  \end{pmatrix}, \;\text{i.e.} \\
-  %\end{bmatrix}\Bigg), \;\text{i.e.} \\
+    + b_5
+    \quad
+  %\end{pmatrix}, \;\text{i.e.} \\
+  \end{bmatrix}\Bigg), \;\text{i.e.} \\
   y_{(t)} &= \phi\bigg(
     {W_{x}}^{T}\, x_{(t)} + {W_{y}}^{T}\, y_{(t-1)} + b
   \bigg),
@@ -115,50 +124,54 @@ where
   \item $w_{x,j} \in \mathbb{R}^k, w_{y,j} \in \mathbb{R}^l, b_{j} \in \mathbb{R}$ are the weights and bias associated with the $j$-th neuron (for all $j=1,2,3,4,5$)
   \item We define
     \begin{align*}
-      {W_x}^{T} &= \begin{pmatrix}
+      {W_x}^{T} &= \begin{bmatrix}
         \quad\horzbar\;{w_{x,1}}^T{}\;\horzbar\quad \\
         \quad\horzbar\;{w_{x,2}}^T{}\;\horzbar\quad \\
         \quad\horzbar\;{w_{x,3}}^T{}\;\horzbar\quad \\
         \quad\horzbar\;{w_{x,4}}^T{}\;\horzbar\quad \\
         \quad\horzbar\;{w_{x,5}}^T{}\;\horzbar\quad \\
-      \end{pmatrix} \\
+      \end{bmatrix} \\
       \\
       \qquad &{}\text{or equivalently} \\
       \\
-      {W_x} &= \begin{pmatrix}
-        \vertbar & \vertbar & \vertbar & \vertbar & \vertbar \\
-        w_{x,1} & w_{x,2} & w_{x,3} & w_{x,4} & w_{x,5} \\
-        \vertbar & \vertbar & \vertbar & \vertbar & \vertbar
-      \end{pmatrix}\,.
+      {W_x} &= \begin{bmatrix}
+        %\vertbar & \vertbar & \vertbar & \vertbar & \vertbar \\
+        %w_{x,1} & w_{x,2} & w_{x,3} & w_{x,4} & w_{x,5} \\
+        %\vertbar & \vertbar & \vertbar & \vertbar & \vertbar
+        \;\,\vertbar & \vertbar & \vertbar & \vertbar & \vertbar \;\, \\
+        \;\, w_{x,1} & w_{x,2} & w_{x,3} & w_{x,4} & w_{x,5}     \;\, \\
+        \;\,\vertbar & \vertbar & \vertbar & \vertbar & \vertbar \;\,
+      \end{bmatrix}\,.
     \end{align*}
+  \item Defining $W_x$ and using the transpose this way has a similar reason as before when we were dealing with linear regression or fully connected NN -- Because later on we will use batch and have matrix multiplication $X W_x\,.$
   \item We define similarly
     \begin{align*}
-      {W_y}^{T} &= \begin{pmatrix}
+      {W_y}^{T} &= \begin{bmatrix}
         \quad\horzbar\;{w_{y,1}}^T{}\;\horzbar\quad \\
         \quad\horzbar\;{w_{y,2}}^T{}\;\horzbar\quad \\
         \quad\horzbar\;{w_{y,3}}^T{}\;\horzbar\quad \\
         \quad\horzbar\;{w_{y,4}}^T{}\;\horzbar\quad \\
         \quad\horzbar\;{w_{y,5}}^T{}\;\horzbar\quad \\
-      \end{pmatrix} \\
+      \end{bmatrix} \\
       \\
       \qquad &{}\text{or equivalently} \\
       \\
-      {W_y} &= \begin{pmatrix}
-        \vertbar & \vertbar & \vertbar & \vertbar & \vertbar \\
-        w_{y,1} & w_{y,2} & w_{y,3} & w_{y,4} & w_{y,5} \\
-        \vertbar & \vertbar & \vertbar & \vertbar & \vertbar
-      \end{pmatrix}\,.
+      {W_y} &= \begin{bmatrix}
+        \;\,\vertbar & \vertbar & \vertbar & \vertbar & \vertbar \;\, \\
+        \;\, w_{y,1} & w_{y,2} & w_{y,3} & w_{y,4} & w_{y,5}     \;\, \\
+        \;\,\vertbar & \vertbar & \vertbar & \vertbar & \vertbar \;\,
+      \end{bmatrix}\,.
     \end{align*}
   \item It is understood that
     $$
     b =
-    \begin{pmatrix}
-      b_1 \\
-      b_2 \\
-      b_3 \\
-      b_4 \\
-      b_5
-    \end{pmatrix}
+    \begin{bmatrix}
+      \;b_1\; \\
+      \;b_2\; \\
+      \;b_3\; \\
+      \;b_4\; \\
+      \;b_5\;
+    \end{bmatrix}
     $$
 \end{itemize}
 
@@ -171,7 +184,16 @@ an entire batch of input instances, say, $m$ instances
     X_{(t)} W_x
     + Y_{(t-1)} W_y
     + b
-  \bigg)
+  \bigg) \\
+          &= \phi\bigg(
+            \begin{bmatrix}
+              X_{(t)} & Y_{(t-1)}
+            \end{bmatrix}
+            W + b
+  \bigg)\; \text{with}\; W = \begin{bmatrix}
+                           W_x \\
+                           W_y
+                         \end{bmatrix}
 \end{align*}
 where
 \begin{itemize}

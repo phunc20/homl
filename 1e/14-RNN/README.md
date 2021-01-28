@@ -8,3 +8,6 @@
   % include the 1st pages from a pdf file
   \includepdf[pages={1}]{myfile.pdf}
   ```
+
+For more info on extracting and merging pdf files, [please visit here](https://github.com/phunc20/linux/tree/master/troubleshoot/pdf).
+
