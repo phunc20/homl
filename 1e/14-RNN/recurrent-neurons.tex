@@ -13,7 +13,7 @@
 \DeclarePairedDelimiter{\abs}{|}{|}
 \newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
 \newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
-
+\usepackage{pdfpages}
 
 \usepackage{hyperref}
 \hypersetup{
@@ -59,9 +59,18 @@ where
   \item $w_y, b$ are both in $\mathbb{R}$
 \end{itemize}
 
+
+
+
 \newpage
 %\thispagestyle{empty}
-\setcounter{page}{3}
+
+
+%\includepdf[pages={1}]{p380.pdf}
+\includepdf[pages=-]{p380-381.pdf}
+
+
+\setcounter{page}{4}
 
 \section{A Layer of Recurrent Neurons}
 To illustrate, let's take Figure 14-2 for example, in which we have a layer of \textbf{5} recurrent neurons. So,
