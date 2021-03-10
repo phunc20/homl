@@ -1,4 +1,21 @@
 """
+## Try labeling `A` and `B`
+Another good way is to label `A` and `B` and see what will happen.
+
+By labeling `A` and `B`, we mean
+- Label them
+  - either `A, B` as `0, 1`
+  - or `A, B` as `1, 0`
+- Train SVM on the entire dataset including `A` and `B`
+
+
+
+In this case we have few data, and we don't have the labels for the points `A` and `B`, even though it does
+seem to make sense to scale the feature in this case.
+
+Let's take a real, larger example and compare the results of SVM w/ and w/o feature scaling.
+
+
 > _SVMs are particularly well suited for classification of complex but **small- or medium**-sized
 datasets._
 
@@ -87,36 +104,37 @@ yB = Xs[-1][1] + slope*(xB - Xs[-1][0])
 B = [xB, yB]
 extra_data = np.array([A, B]).astype(np.float64)
 
+
+another_svm_clf = SVC(kernel="linear", C=100)
+X_aug_scaled = scaler.fit_transform(X_aug)
+X_aug_scaled
+
+another_svm_clf = SVC(kernel="linear", C=100)
+another_svm_clf.fit(X_aug, y_aug)
+
+
+
+another_svm_clf = SVC(kernel="linear", C=100)
+another_svm_clf.fit(X_aug, y_aug)
 plt.figure(figsize=(12,3.2))
 plt.subplot(121)
-plt.plot(Xs[:, 0][ys==1], Xs[:, 1][ys==1], "bo")
-plt.plot(Xs[:, 0][ys==0], Xs[:, 1][ys==0], "ms")
-#plt.plot(X_aug[-2:, 0], X_aug[-2:, 1], "rx")
-#plt.plot(extra_data[:, 0], extra_data[:, 1], "rx")
-## See for more markers: ^ for triangle, D for diamond
-## https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html
-plt.plot(xA, yA, "r^")
-plt.plot(xB, yB, "gD")
-plot_svc_decision_boundary(svm_clf, 0, 6)
+plt.plot(X_aug[:, 0][y_aug==1], X_aug[:, 1][y_aug==1], "bo")
+plt.plot(X_aug[:, 0][y_aug==0], X_aug[:, 1][y_aug==0], "ms")
+plot_svc_decision_boundary(another_svm_clf, 0, 6)
 plt.xlabel("$x_0$", fontsize=20)
 plt.ylabel("$x_1$  ", fontsize=20, rotation=0)
-w0, w1 = svm_clf.coef_[0]
+w0, w1 = another_svm_clf.coef_[0]
 slope = - w0/w1
 plt.title(f"slope = {slope:.4f}", fontsize=16)
 plt.axis([0, 6, 0, 90]);
 
-A_scaled = scaler.transform([A])[0]
-B_scaled = scaler.transform([B])[0]
-#extra_data_scaled = scaler.transform([B])[0]
-
+another_svm_clf.fit(X_aug_scaled, y_aug)
 plt.subplot(122)
-plt.plot(X_scaled[:, 0][ys==1], X_scaled[:, 1][ys==1], "bo")
-plt.plot(X_scaled[:, 0][ys==0], X_scaled[:, 1][ys==0], "ms")
-plt.plot(A_scaled[0], A_scaled[1], "r^")
-plt.plot(B_scaled[0], B_scaled[1], "gD")
-plot_svc_decision_boundary(scaled_svm_clf, -2, 2)
+plt.plot(X_aug_scaled[:, 0][y_aug==1], X_aug_scaled[:, 1][y_aug==1], "bo")
+plt.plot(X_aug_scaled[:, 0][y_aug==0], X_aug_scaled[:, 1][y_aug==0], "ms")
+plot_svc_decision_boundary(another_svm_clf, -2, 2)
 plt.xlabel("$x_0$", fontsize=20)
-w0, w1 = scaled_svm_clf.coef_[0]
+w0, w1 = another_svm_clf.coef_[0]
 scaled_slope = - w0/w1
 plt.title(f"slope = {scaled_slope:.4f}", fontsize=16)
 plt.axis([-2, 2, -2, 2]);
