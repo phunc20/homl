@@ -10,6 +10,11 @@ dataset and how large does Mr. Geron mean by large?
 In Figure 5-1, we do see that the lines seem to have different slopes,
 but are they **_only so visually_** or **_numerically they are indeed of quite different slope values_**?
 
+There is difference in the magnitude of the slopes before and after scaling.
+
+Let's try to find a point
+- which is classified safely as square magenta point on the left
+- and which causes trouble by crossing the decision boundary towards the blue circular point territory on the right.
 
 """
 from sklearn.svm import SVC
@@ -33,8 +38,9 @@ plt.plot(Xs[:, 0][ys==0], Xs[:, 1][ys==0], "ms")
 plot_svc_decision_boundary(svm_clf, 0, 6)
 plt.xlabel("$x_0$", fontsize=20)
 plt.ylabel("$x_1$  ", fontsize=20, rotation=0)
-slope = None
-plt.title(f"decision boundary slope = ", fontsize=16)
+w0, w1 = svm_clf.coef_
+slope = - w0/w1
+plt.title(f"decision boundary slope = {slope}", fontsize=16)
 plt.axis([0, 6, 0, 90])
 
 scaler = StandardScaler()
@@ -46,8 +52,9 @@ plt.plot(X_scaled[:, 0][ys==1], X_scaled[:, 1][ys==1], "bo")
 plt.plot(X_scaled[:, 0][ys==0], X_scaled[:, 1][ys==0], "ms")
 plot_svc_decision_boundary(svm_clf, -2, 2)
 plt.xlabel("$x_0$", fontsize=20)
-slope = None
-plt.title(f"decision boundary slope = ", fontsize=16)
+w0, w1 = svm_clf.coef_
+slope = - w0/w1
+plt.title(f"decision boundary slope = {slope}", fontsize=16)
 #plt.title("Scaled", fontsize=16)
 plt.axis([-2, 2, -2, 2])
 
@@ -71,3 +78,45 @@ def plot_svc_decision_boundary(svm_clf, xmin, xmax):
     plt.plot(x0, decision_boundary, "k-", linewidth=2)
     plt.plot(x0, gutter_up, "k--", linewidth=2)
     plt.plot(x0, gutter_down, "k--", linewidth=2)
+
+xA = 5.7
+yA = Xs[0][1] + slope*(xA - Xs[0][0])
+A = [xA, yA]
+xB = 0.2
+yB = Xs[-1][1] + slope*(xB - Xs[-1][0])
+B = [xB, yB]
+extra_data = np.array([A, B]).astype(np.float64)
+
+plt.figure(figsize=(12,3.2))
+plt.subplot(121)
+plt.plot(Xs[:, 0][ys==1], Xs[:, 1][ys==1], "bo")
+plt.plot(Xs[:, 0][ys==0], Xs[:, 1][ys==0], "ms")
+#plt.plot(X_aug[-2:, 0], X_aug[-2:, 1], "rx")
+#plt.plot(extra_data[:, 0], extra_data[:, 1], "rx")
+## See for more markers: ^ for triangle, D for diamond
+## https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html
+plt.plot(xA, yA, "r^")
+plt.plot(xB, yB, "gD")
+plot_svc_decision_boundary(svm_clf, 0, 6)
+plt.xlabel("$x_0$", fontsize=20)
+plt.ylabel("$x_1$  ", fontsize=20, rotation=0)
+w0, w1 = svm_clf.coef_[0]
+slope = - w0/w1
+plt.title(f"slope = {slope:.4f}", fontsize=16)
+plt.axis([0, 6, 0, 90]);
+
+A_scaled = scaler.transform([A])[0]
+B_scaled = scaler.transform([B])[0]
+#extra_data_scaled = scaler.transform([B])[0]
+
+plt.subplot(122)
+plt.plot(X_scaled[:, 0][ys==1], X_scaled[:, 1][ys==1], "bo")
+plt.plot(X_scaled[:, 0][ys==0], X_scaled[:, 1][ys==0], "ms")
+plt.plot(A_scaled[0], A_scaled[1], "r^")
+plt.plot(B_scaled[0], B_scaled[1], "gD")
+plot_svc_decision_boundary(scaled_svm_clf, -2, 2)
+plt.xlabel("$x_0$", fontsize=20)
+w0, w1 = scaled_svm_clf.coef_[0]
+scaled_slope = - w0/w1
+plt.title(f"slope = {scaled_slope:.4f}", fontsize=16)
+plt.axis([-2, 2, -2, 2]);
