@@ -1,4 +1,11 @@
 """
+
+- [https://www.facebook.com/groups/pythontw/?multi_permalinks=10161075022278438&notif_id=1615444508072515&notif_t=feedback_reaction_generic&ref=notif](https://www.facebook.com/groups/pythontw/?multi_permalinks=10161075022278438&notif_id=1615444508072515&notif_t=feedback_reaction_generic&ref=notif)
+- [https://stackoverflow.com/questions/15436367/svm-scaling-input-values](https://stackoverflow.com/questions/15436367/svm-scaling-input-values)
+- [https://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf](https://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf)
+
+
+
 ## Try labeling `A` and `B`
 Another good way is to label `A` and `B` and see what will happen.
 
