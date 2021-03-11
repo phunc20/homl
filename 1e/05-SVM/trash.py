@@ -138,3 +138,70 @@ w0, w1 = another_svm_clf.coef_[0]
 scaled_slope = - w0/w1
 plt.title(f"slope = {scaled_slope:.4f}", fontsize=16)
 plt.axis([-2, 2, -2, 2]);
+
+
+from sklearn import datasets
+iris = datasets.load_iris()
+X = iris["data"][:, [2,3]]
+y = iris["target"]
+X.shape, y.shape
+
+X[:,1] = petal_width*(1e+4)
+
+
+svm_clf.fit(X, y)
+plt.figure(figsize=(12,3.2))
+plt.subplot(121)
+plt.plot(X[:, 0][y==1], X[:, 1][y==1], "bs")
+plt.plot(X[:, 0][y==0], X[:, 1][y==0], "yo")
+plot_svc_decision_boundary(svm_clf, 0, 6)
+plt.xlabel("petal length", fontsize=20)
+plt.ylabel("petal width", fontsize=20, rotation=0)
+w0, w1 = svm_clf.coef_[0]
+slope = - w0/w1
+plt.title(f"slope (right scale) = {slope:.4f}", fontsize=16)
+plt.axis([0, 6, 0, 90])
+
+svm_clf.fit(X_wrong_scale, y)
+
+plt.subplot(122)
+plt.plot(X_wrong_scale[:, 0][y==1], X_wrong_scale[:, 1][y==1], "bs")
+plt.plot(X_wrong_scale[:, 0][y==0], X_wrong_scale[:, 1][y==0], "yo")
+plot_svc_decision_boundary(svm_clf, -2, 2)
+#plt.xlabel("$x_0$", fontsize=20)
+plt.xlabel("petal length", fontsize=20)
+plt.ylabel("petal width", fontsize=20, rotation=0)
+w0, w1 = scaled_svm_clf.coef_[0]
+scaled_slope = - w0/w1
+plt.title(f"slope (wrong scale) = {scaled_slope:.4f}", fontsize=16)
+plt.axis([-2, 2, -2, 2]);
+
+
+
+
+svm_clf.fit(X, y)
+plt.figure(figsize=(13.7,3.2))
+plt.subplot(121)
+plt.plot(X[:, 0][y==1], X[:, 1][y==1], "bs")
+plt.plot(X[:, 0][y==0], X[:, 1][y==0], "yo")
+plot_svc_decision_boundary(svm_clf, 0, 5.5)
+plt.xlabel("petal length (cm)", fontsize=20)
+plt.ylabel("petal width (cm)", fontsize=20)
+w0, w1 = svm_clf.coef_[0]
+slope = - w0/w1
+plt.title(f"slope (same scale) = {slope:.4f}", fontsize=16)
+plt.axis([0, 5.5, 0, 2])
+
+svm_clf.fit(X_diff_scale, y)
+
+plt.subplot(122)
+plt.plot(X_diff_scale[:, 0][y==1], X_diff_scale[:, 1][y==1], "bs")
+plt.plot(X_diff_scale[:, 0][y==0], X_diff_scale[:, 1][y==0], "yo")
+plot_svc_decision_boundary(svm_clf, 0, 5.5)
+#plt.xlabel("$x_0$", fontsize=20)
+plt.xlabel("petal length (cm)", fontsize=20)
+plt.ylabel("petal width (mm)", fontsize=20)
+w0, w1 = svm_clf.coef_[0]
+scaled_slope = - w0/w1
+plt.title(f"slope (diff scale) = {scaled_slope:.4f}", fontsize=16)
+plt.axis([0, 5.5, 0, 3e+4]);
